@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
 
     # what routes do i need for signup?
-    get '/signup' do'
+    get '/signup' do
         
     end
 
