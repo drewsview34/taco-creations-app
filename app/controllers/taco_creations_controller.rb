@@ -24,12 +24,54 @@ class TacoCreationsController < ApplicationController
         end
     end
 
-    # show page for a taco creation
+    # show route for a taco creation
     get '/taco_creations/:id' do
-        @taco_creation = TacoCreation.find(params[:id])
+        set_taco_creation
         erb :'/taco_creations/show'
     end
 
+    # RIGHT NOW, anyone can edit anyones taco creation
+    # this route should send us to taco_creations/edit.erb which will render an edit form
+    get '/taco_creations/:id/edit' do
+        set_taco_creation
+        if logged_in?
+            if @taco_creation.user == current_user
+                erb :'/taco_creations/edit'
+            else   
+                redirect "users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
+    end
+
+
+    # This action's job is to...
+    patch '/taco_creations/:id' do
+        #1. find the taco creation
+        set_taco_creation
+        if logged_in?
+            if @taco_creation.user == current_user
+                @taco_creation.update(creation: params[:creation])
+                redirect "/taco_creations/#{{@taco_creation.id}}"
+            else
+                redirect "users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
+        #2. modify (update) the taco creation
+        @taco_creation.update(creation: params[:creation])
+        #3. redirect to show page
+        redirect "/taco_creations/#{@taco_creation.id}"
+    end
+
     # index route for all taco creations
+
+    private
+
+    def set_taco_creation
+        @taco_creation = TacoCreation.find(params[:id])
+    end
 
 end
