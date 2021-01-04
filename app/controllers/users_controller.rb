@@ -52,7 +52,7 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             #where do I go
             #let's go to the user show page
-            redirect "/users/#{user.id}"
+            redirect "/users/#{@user.id}"
         else
             # not valid input
             # it would be better to include a message to the user telling them what is wrong
@@ -67,6 +67,10 @@ class UsersController < ApplicationController
         erb :'/users/show'
     end
 
+    # get '/logout' do
+    #     session.clear
+    #     redirect '/'
+    # end
     get '/logout' do
         session.clear
         redirect '/'
