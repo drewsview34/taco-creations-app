@@ -19,7 +19,8 @@ class UsersController < ApplicationController
         # log the user in - create the user session
             session[:user_id] = @user.id
         # redirect to the user's landing page (show? index? dashboard?)
-            redirect "users/#{{@user.id}}"
+            puts session
+            redirect "users/#{@user.id}"
         else
         #tell the user they entered invalid credentials
         #redirect them to the login page
@@ -29,13 +30,46 @@ class UsersController < ApplicationController
 
 
     # what routes do i need for signup?
+    # this route's job is to render the signup form
     get '/signup' do
-        
+        # erb (render) a view
+        erb :signup
+    end
+
+    post '/users' do
+        #here is where we will create a new user and persist the new user to the DB
+        #params will look like this:
+        #{
+        #"name"=>"name", 
+        #"username"=>"username"
+        #"password"=>"password"
+        #}
+        # I only want to persist a user that has a name, enmail, AND password
+        if params[:name] != "" && params[:username] != "" && params[:password] != ""
+            # valid input
+            @user = User.create(params)
+            #logging the user in
+            session[:user_id] = @user.id
+            #where do I go
+            #let's go to the user show page
+            redirect "/users/#{user.id}"
+        else
+            # not valid input
+            # it would be better to include a message to the user telling them what is wrong
+            redirect '/signup'
+        end
     end
 
     # user SHOW route
     get '/users/:id' do
-        erb :show    
+        @user = User.find_by(id: params[:id])
+
+        erb :'/users/show'
+    end
+
+    get '/logout' do
+        session.clear
+        redirect '/'
     end
 
 end
