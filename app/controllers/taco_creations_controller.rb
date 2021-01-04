@@ -24,10 +24,15 @@ class TacoCreationsController < ApplicationController
         end
     end
 
-    # show page for a taco creation
+    # show route for a taco creation
     get '/taco_creations/:id' do
         @taco_creation = TacoCreation.find(params[:id])
         erb :'/taco_creations/show'
+    end
+
+    # this route should send us to taco_creations/edit.erb which will render an edit form
+    get '/taco_creations/:id/edit' do
+        erb :'/taco_creations/edit'
     end
 
     # index route for all taco creations
