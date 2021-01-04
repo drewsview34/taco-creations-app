@@ -25,6 +25,10 @@ class TacoCreationsController < ApplicationController
     end
 
     # show page for a taco creation
+    get '/taco_creations/:id' do
+        @taco_creation = TacoCreation.find(params[:id])
+        erb :'/taco_creations/show'
+    end
 
     # index route for all taco creations
 
