@@ -1,1 +1,7 @@
 Taco Creation Index!
+
+<% @taco_creations.each do |taco_creation| %>
+    <h4><%= taco_creation.creation %></h4>
+    <p><%= taco_creation.created_at %></p>
+    <br><br>
+<% end %>

@@ -1,5 +1,11 @@
 class TacoCreationsController < ApplicationController
 
+    get '/taco_creations' do
+        @taco_creations = TacoCreation.all
+        erb :'taco_creations/index'
+
+    end
+
     # get taco_creations/new to render a form to create new 
     get '/taco_creations/new' do
         erb :'taco_creations/new'
@@ -53,7 +59,7 @@ class TacoCreationsController < ApplicationController
         if logged_in?
             if @taco_creation.user == current_user
                 @taco_creation.update(creation: params[:creation])
-                redirect "/taco_creations/#{{@taco_creation.id}}"
+                redirect "/taco_creations/#{@taco_creation.id}"
             else
                 redirect "users/#{current_user.id}"
             end
