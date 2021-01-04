@@ -1,1 +1,8 @@
-EDIT FORM GOES HERE
+<h2>Edit Your Taco Creation! Go Ahead... Taco Bout It.</h2>
+
+<form class="" action="/taco_creations/<%= @taco_creation.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Creation:</label>
+    <textarea name="creation"><%= @taco_creation.creation %></textarea>
+    <input type="submit" name="" value="Edit Taco!">
+</form>
