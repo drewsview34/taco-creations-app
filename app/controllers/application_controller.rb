@@ -10,7 +10,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    # redirect '/login'
+    if logged_in?
+      redirect "/users/:id"
+    else
+      erb :welcome
+    end
   end
 
   helpers do
