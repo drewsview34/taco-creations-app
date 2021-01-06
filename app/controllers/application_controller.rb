@@ -27,7 +27,9 @@ class ApplicationController < Sinatra::Base
     def current_user
       @current_user ||= User.find_by(id: session[:user_id])
     end
-  end
 
+    def authorized_to_edit?(taco_creation)
+      @taco_creation.user == current_user
+    end
 
 end

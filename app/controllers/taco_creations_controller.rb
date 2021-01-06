@@ -41,7 +41,7 @@ class TacoCreationsController < ApplicationController
     get '/taco_creations/:id/edit' do
         set_taco_creation
         if logged_in?
-            if @taco_creation.user == current_user
+            if authorized_to_edit(@taco_creation)
                 erb :'/taco_creations/edit'
             else   
                 redirect "users/#{current_user.id}"
@@ -57,7 +57,7 @@ class TacoCreationsController < ApplicationController
         #1. find the taco creation
         set_taco_creation
         if logged_in?
-            if @taco_creation.user == current_user
+            if authorized_to_edit(@taco_creation)
                 @taco_creation.update(creation: params[:creation])
                 redirect "/taco_creations/#{@taco_creation.id}"
             else

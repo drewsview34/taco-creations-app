@@ -2,8 +2,11 @@ Taco Creation Show Page!
 
 <p><%= @taco_creation.creation %></p>
 
-<a href="/taco_creations/<%= @taco_creation.id %>/edit">Edit Entry</a>
 
+<% if authorized_to_edit?(@taco_creation) %>
+    <a href="/taco_creations/<%= @taco_creation.id %>/edit">Edit Entry</a>
 
+<%%>
 
 Delete Link
+<% end %>
