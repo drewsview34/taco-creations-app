@@ -31,5 +31,6 @@ class ApplicationController < Sinatra::Base
     def authorized_to_edit?(taco_creation)
       @taco_creation.user == current_user
     end
+  end
 
 end

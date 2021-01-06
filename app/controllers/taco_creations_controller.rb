@@ -72,6 +72,15 @@ class TacoCreationsController < ApplicationController
         redirect "/taco_creations/#{@taco_creation.id}"
     end
 
+    delete '/taco_creations/:id' do
+        set_taco_creation
+        if authorized_to_edit?(@taco_creation)
+            @taco_creation.destroy
+            redirect 'taco_creations'
+        else
+            redirect 'taco_creations'
+        end
+    end
     # index route for all taco creations
 
     private
