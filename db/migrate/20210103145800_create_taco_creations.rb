@@ -6,7 +6,6 @@ class CreateTacoCreations < ActiveRecord::Migration
       t.string :creation
       t.integer :user_id
 
-      # automatically updates the table with a timestamp
       t.timestamps null: false
     end
   end
