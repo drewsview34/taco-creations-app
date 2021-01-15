@@ -1,7 +1,10 @@
-Taco Creation Index!
+<h1>Taco Creations!</h1>
 
+<h2>
 <% @taco_creations.each do |taco_creation| %>
-    <h4><%= taco_creation.creation %></h4>
-    <p><%= taco_creation.created_at %></p>
-    <br><br>
+    <h4><a href="/taco_creations/<%= taco_creation.id %>"><%= taco_creation.created_at %></a></h4>
+    <h5>By <%= taco_creation.user.name %></h5>
+    <p><%= taco_creation.creation %></p>
+    
 <% end %>
+</h2>

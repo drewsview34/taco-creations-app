@@ -2,9 +2,11 @@ Taco Creation Show Page!
 
 <p><%= @taco_creation.creation %></p>
 
-Edit Link
-<a href="/taco_creations/<%= @taco_creation.id %>/edit">Edit Entry</a>
 
-
-
-Delete Link
+<% if authorized_to_edit?(@taco_creation) %>
+    <a href="/taco_creations/<%= @taco_creation.id %>/edit">Edit Entry</a>
+    <form class="" action="/taco_creations/<%= @taco_creation.id %>" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" name="" value="Delete">
+    </form>
+<% end %>

@@ -24,6 +24,7 @@ class TacoCreationsController < ApplicationController
         if params[:content] != ""
             #create a new entry
             @taco_creation = TacoCreation.create(creation: params[:creation], user_id: current_user.id)
+            binding.pry
             redirect "/taco_creations/#{@taco_creation.id}"
         else
             redirect '/taco_creations/new'
@@ -41,7 +42,7 @@ class TacoCreationsController < ApplicationController
     get '/taco_creations/:id/edit' do
         set_taco_creation
         if logged_in?
-            if @taco_creation.user == current_user
+            if authorized_to_edit?(@taco_creation)
                 erb :'/taco_creations/edit'
             else   
                 redirect "users/#{current_user.id}"
@@ -57,7 +58,7 @@ class TacoCreationsController < ApplicationController
         #1. find the taco creation
         set_taco_creation
         if logged_in?
-            if @taco_creation.user == current_user
+            if authorized_to_edit?(@taco_creation) && params[:creation] != ""
                 @taco_creation.update(creation: params[:creation])
                 redirect "/taco_creations/#{@taco_creation.id}"
             else
@@ -72,6 +73,15 @@ class TacoCreationsController < ApplicationController
         redirect "/taco_creations/#{@taco_creation.id}"
     end
 
+    delete '/taco_creations/:id' do
+        set_taco_creation
+        if authorized_to_edit?(@taco_creation)
+            @taco_creation.destroy
+            redirect 'taco_creations'
+        else
+            redirect 'taco_creations'
+        end
+    end
     # index route for all taco creations
 
     private
