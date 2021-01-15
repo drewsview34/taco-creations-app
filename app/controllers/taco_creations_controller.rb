@@ -24,6 +24,7 @@ class TacoCreationsController < ApplicationController
         if params[:content] != ""
             #create a new entry
             @taco_creation = TacoCreation.create(creation: params[:creation], user_id: current_user.id)
+            binding.pry
             redirect "/taco_creations/#{@taco_creation.id}"
         else
             redirect '/taco_creations/new'
