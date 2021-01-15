@@ -15,10 +15,11 @@
   </head>
   <body>
     <div class="nav">
+      <% if logged_in?%>
       <a href="/logout">Logout</a>
       <a href="/taco_creations">My Taco Creations</a>
       <a href="/taco_creations/new">New Taco Creation</a>
-      <a href=""></a>
+      <% end %>
     </div>
 
 
